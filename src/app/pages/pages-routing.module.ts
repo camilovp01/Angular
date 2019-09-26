@@ -1,0 +1,27 @@
+import { RouterModule, Routes } from "@angular/router";
+import { PagesComponent } from './pages.component';
+import { ProgressComponent } from './progress/progress.component';
+import { Graficas1Component } from './graficas1/graficas1.component';
+import { DasboardComponent } from './dasboard/dasboard.component';
+import { NgModule } from '@angular/core';
+
+
+const pagesRoutes: Routes = [
+    {
+        path: '',
+        component: PagesComponent,
+        children: [
+            { path: 'dashboard', component: DasboardComponent },
+            { path: 'progress', component: ProgressComponent },
+            { path: 'grafica1', component: Graficas1Component },
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+        ]
+    }
+];
+
+@NgModule({
+    imports: [RouterModule.forChild(pagesRoutes)],
+    exports: [RouterModule]
+})
+
+export class PagesRoutingModule { }
