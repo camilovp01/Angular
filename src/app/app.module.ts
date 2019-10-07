@@ -14,13 +14,14 @@ import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component
 import { PagesComponent } from './pages/pages.component';
 import { RegisterComponent } from './login/register.component';
 import { PagesModule } from './pages/pages.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    NopagefoundComponent
+    NopagefoundComponent,
     // DasboardComponent,
     // ProgressComponent,
     // Graficas1Component,
@@ -32,7 +33,8 @@ import { PagesModule } from './pages/pages.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PagesModule
+    PagesModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
