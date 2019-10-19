@@ -5,6 +5,8 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 import { DasboardComponent } from './dasboard/dasboard.component';
 import { NgModule } from '@angular/core';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 const pagesRoutes: Routes = [
@@ -12,10 +14,12 @@ const pagesRoutes: Routes = [
         path: '',
         component: PagesComponent,
         children: [
-            { path: 'dashboard', component: DasboardComponent },
-            { path: 'progress', component: ProgressComponent },
-            { path: 'grafica1', component: Graficas1Component },
-            { path: 'account-settings', component: AccountSettingsComponent },
+            { path: 'dashboard', component: DasboardComponent, data: { titulo: 'Mi dashboard' } },
+            { path: 'progress', component: ProgressComponent, data: { titulo: 'Mi Progress' } },
+            { path: 'grafica1', component: Graficas1Component, data: { titulo: 'Mis Gráficas' } },
+            { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes de Cuenta' } },
+            { path: 'promesas', component: PromesasComponent, data: { titulo: 'Mis Promesas' } },
+            { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Mi Rxjs' } },
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ]
     }
