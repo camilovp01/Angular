@@ -7,12 +7,14 @@ import { NgModule } from '@angular/core';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { LoginGuard } from '../services/services.index';
 
 
 const pagesRoutes: Routes = [
     {
         path: '',
         component: PagesComponent,
+        canActivate: [LoginGuard],
         children: [
             { path: 'dashboard', component: DasboardComponent, data: { titulo: 'Mi dashboard' } },
             { path: 'progress', component: ProgressComponent, data: { titulo: 'Mi Progress' } },
