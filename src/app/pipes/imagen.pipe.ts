@@ -7,12 +7,16 @@ import { environment } from 'src/environments/environment';
 export class ImagenPipe implements PipeTransform {
 
   transform(img: string, tipo: string = 'usuarios'): any {
+    
+    let url = environment.urlServicios + 'imagenes/';
 
+    if (!img) {
+      return url + 'usuarios/notfound';
+    }
+    
     if (img.indexOf('https') >= 0) {
       return img;
     }
-
-    let url = environment.urlServicios + 'imagenes/';
 
     if (!img) {
       return url + 'usuario/notfound';

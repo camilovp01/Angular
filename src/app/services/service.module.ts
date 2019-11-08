@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SettingsService, SharedService, SidebarService, UsuarioService, LoginGuard, SubirArchivoService } from './services.index';
-import { HttpClientModule } from '@angular/common/http';
-import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
-
-
+import { SettingsService, SharedService, SidebarService, UsuarioService, LoginGuard, SubirArchivoService, ModalUploadService, HospitalesService, InterceptorService } from './services.index';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
@@ -20,7 +17,13 @@ import { ModalUploadService } from '../components/modal-upload/modal-upload.serv
     UsuarioService,
     LoginGuard,
     SubirArchivoService,
-    ModalUploadService
+    ModalUploadService,
+    HospitalesService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
   ]
 })
 export class ServiceModule { }

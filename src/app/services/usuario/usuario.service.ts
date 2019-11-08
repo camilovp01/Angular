@@ -82,7 +82,7 @@ export class UsuarioService {
   }
 
   actualizar(usuario: Usuario) {
-    let url = environment.urlServicios + 'usuario/' + usuario._id + '?token=' + this.token;
+    let url = environment.urlServicios + 'usuario/' + usuario._id;
     return this.http.put(url, usuario).pipe(
       map((resp: any) => {
         if (usuario._id === this.usuario._id) {
@@ -129,7 +129,7 @@ export class UsuarioService {
   }
 
   borrarUsuario(id: string) {
-    let url = environment.urlServicios + 'usuario/' + id + '?token=' + this.token;
+    let url = environment.urlServicios + 'usuario/' + id;
     return this.http.delete(url);
   }
 

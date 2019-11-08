@@ -80,8 +80,7 @@ export class UsuariosComponent implements OnInit {
       focusCancel: true
     }).then((result) => {
       if (result.value) {
-        this._usuarioService.borrarUsuario(usuario._id).subscribe((resp: any) => {
-          this.desde = 0;
+        this._usuarioService.borrarUsuario(usuario._id).subscribe(() => {
           this.cargarUsuarios();
           Swal.fire(
             'Borrado!',
