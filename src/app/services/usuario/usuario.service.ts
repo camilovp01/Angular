@@ -85,11 +85,13 @@ export class UsuarioService {
     let url = environment.urlServicios + 'usuario/' + usuario._id + '?token=' + this.token;
     return this.http.put(url, usuario).pipe(
       map((resp: any) => {
-        let usuarioDb: Usuario = resp.usuario;
-        this.guardarStorage(usuarioDb._id, this.token, usuarioDb);
+        if (usuario._id === this.usuario._id) {
+          let usuarioDb: Usuario = resp.usuario;
+          this.guardarStorage(usuarioDb._id, this.token, usuarioDb);
+        }
         swal.fire({
           title: "Usuario actualizado",
-          text: usuarioDb.nombre,
+          text: usuario.nombre,
           icon: "success",
         });
         return true;
@@ -106,12 +108,29 @@ export class UsuarioService {
           text: resp.usuario.nombre,
           icon: "success",
         });
-        console.log(resp.usuario.img);
-        console.log(this.usuario);
         this.guardarStorage(id, this.token, this.usuario);
+        this.router.navigate(['/profile']);
       })
       .catch((resp) => {
         console.log(resp)
       });
   }
+
+  cargarUsuarios(desde: number) {
+    let url = environment.urlServicios + 'usuario/?desde=' + desde;
+    return this.http.get(url);
+  }
+
+  buscarUsuario(termino: string) {
+    let url = environment.urlServicios + 'busqueda/coleccion/usuarios/' + termino;
+    return this.http.get(url).pipe(
+      map((resp: any) => resp.usuarios)
+    );
+  }
+
+  borrarUsuario(id: string) {
+    let url = environment.urlServicios + 'usuario/' + id + '?token=' + this.token;
+    return this.http.delete(url);
+  }
+
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario/usuario.model';
 import { UsuarioService } from 'src/app/services/services.index';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -25,9 +25,7 @@ export class ProfileComponent implements OnInit {
     this.usuario.nombre = usuario.nombre;
     this.usuario.email = usuario.email || this.usuario.email;
 
-    this._usuarioService.actualizar(this.usuario).subscribe((resp) => {
-      console.log(resp);
-    });
+    this._usuarioService.actualizar(this.usuario).subscribe();
   }
 
   seleccionImage(archivo: File) {
@@ -37,7 +35,7 @@ export class ProfileComponent implements OnInit {
     }
 
     if (archivo.type.indexOf('image') < 0) {
-      swal.fire({
+      Swal.fire({
         title: "Archivo no permitido",
         text: "Debe cargar solo imagenes",
         icon: "error",
@@ -47,14 +45,15 @@ export class ProfileComponent implements OnInit {
     this.imagenSubir = archivo;
 
     let reader = new FileReader();
-    let urlImagenTemp = reader.readAsDataURL(archivo);
-
+    reader.readAsDataURL(archivo);
     reader.onloadend = () => this.imagenTemp = reader.result;
 
   }
 
   cambiarImagen() {
+
     this._usuarioService.cambiarImagen(this.imagenSubir, this.usuario._id);
+
   }
 
 }

@@ -22,7 +22,7 @@ import { ServiceModule } from './services/service.module';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    NopagefoundComponent,
+    NopagefoundComponent
     // DasboardComponent,
     // ProgressComponent,
     // Graficas1Component,
