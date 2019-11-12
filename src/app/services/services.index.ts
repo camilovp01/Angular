@@ -1,3 +1,4 @@
+export { MedicoService } from './medico/medico.service';
 export { InterceptorService } from '../interceptors/interceptor.service';
 export { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 export { HospitalesService } from './hospitales/hospitales.service';
