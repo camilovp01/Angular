@@ -18,6 +18,7 @@
     </div>
   </div>
 </div>
+
 <div class="row animated fadeIn">
   <div class="col-12">
     <div class="card">
@@ -42,11 +43,11 @@
           </thead>
           <tbody>
             <tr *ngFor="let medico of medicos">
-              <td class="w70" class="pointer" (click)="mostrarModal(medico._id)">
+              <td>
                 <img [src]="medico.img | imagen:'medicos' " class="img-50 img-circle">
               </td>
-              <td> {{medico.nombre}}</td>
-              <td> {{medico.hospital.nombre}}</td>
+              <td> {{medico.nombre}} </td>
+              <td> {{medico.hospital.nombre}} </td>
               <td>
                 <button [routerLink]="['/medico',medico._id]" class="btn btn-primary">
                   <i class="fa fa-edit"></i>

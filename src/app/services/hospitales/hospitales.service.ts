@@ -50,4 +50,13 @@ export class HospitalesService {
     );
   }
 
+  obtenerHospital(id: string) {
+
+    let url = environment.urlServicios + 'hospital/' + id;
+    return this.http.get(url).pipe(
+      map((resp: any) => resp.hospital)
+    );
+
+  }
+
 }

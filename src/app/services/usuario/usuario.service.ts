@@ -14,22 +14,26 @@ export class UsuarioService {
 
   public token: string;
   public usuario: Usuario;
+  public menu: any = [];
 
   constructor(private http: HttpClient, public router: Router, public _subirArchivoService: SubirArchivoService) {
     this.token = localStorage.getItem('token') || '';
     this.usuario = JSON.parse(localStorage.getItem('usuario')) || null;
+    this.menu = this.token.length > 0 ? JSON.parse(localStorage.getItem('menu')) : null;
   }
 
   esAutenticado() {
     return (this.token.length > 5) ? true : false;
   }
 
-  guardarStorage(id: string, token: string, usuario: Usuario) {
+  guardarStorage(id: string, token: string, usuario: Usuario, menu: any) {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
+    localStorage.setItem('menu', JSON.stringify(menu));
     this.token = localStorage.getItem('token');
     this.usuario = JSON.parse(localStorage.getItem('usuario'));
+    this.menu = menu;
   }
 
   crear(usuario: Usuario) {
@@ -57,7 +61,7 @@ export class UsuarioService {
     let url = environment.urlServicios + 'login';
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
-        this.guardarStorage(resp.id, resp.token, resp.usuario);
+        this.guardarStorage(resp.id, resp.token, resp.usuario, resp.menu);
         return true;
       })
     );
@@ -67,7 +71,7 @@ export class UsuarioService {
     let url = environment.urlServicios + 'login/google';
     return this.http.post(url, { token }).pipe(
       map((resp: any) => {
-        this.guardarStorage(resp.id, resp.token, resp.usuario);
+        this.guardarStorage(resp.id, resp.token, resp.usuario, resp.menu);
         return true;
       }));
   }
@@ -75,9 +79,11 @@ export class UsuarioService {
   logout() {
     this.token = '';
     this.usuario = null;
+    this.menu = [];
     localStorage.removeItem('id');
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    localStorage.removeItem('menu');
     this.router.navigate(['/login']);
   }
 
@@ -87,7 +93,7 @@ export class UsuarioService {
       map((resp: any) => {
         if (usuario._id === this.usuario._id) {
           let usuarioDb: Usuario = resp.usuario;
-          this.guardarStorage(usuarioDb._id, this.token, usuarioDb);
+          this.guardarStorage(usuarioDb._id, this.token, usuarioDb, this.menu);
         }
         swal.fire({
           title: "Usuario actualizado",
@@ -108,7 +114,7 @@ export class UsuarioService {
           text: resp.usuario.nombre,
           icon: "success",
         });
-        this.guardarStorage(id, this.token, this.usuario);
+        this.guardarStorage(id, this.token, this.usuario, this.menu);
         this.router.navigate(['/profile']);
       })
       .catch((resp) => {

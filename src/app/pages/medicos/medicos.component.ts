@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MedicoService } from 'src/app/services/services.index';
 import { Medico } from 'src/app/models/medico/medico.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-medicos',
@@ -43,7 +44,40 @@ export class MedicosComponent implements OnInit {
   }
 
   borrarMedico(medico: Medico) {
+    Swal.fire({
+      title: 'Está seguro?',
+      text: 'Se eliminará el usuario ' + medico.nombre,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borrar',
+      reverseButtons: true,
+      focusCancel: true
+    }).then((result) => {
+      if (result.value) {
+        this._medicoService.borrarMedico(medico._id).subscribe(() => {
+          this.cargarMedicos();
+          Swal.fire(
+            'Borrado!',
+            'El usuario' + medico.nombre + ' ha sido eliminado',
+            'success'
+          )
+        });
+      }
+    });
+  }
 
+  cambiarDesde(valor: number) {
+    let desde = this.desde + valor;
+    if (desde >= this.totalRegistros) {
+      return;
+    }
+    if (desde < 0) {
+      return;
+    }
+    this.desde += valor;
+    this.cargarMedicos();
   }
 
 }
