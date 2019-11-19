@@ -24,13 +24,18 @@ const routes: Routes = [
   // },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  {
+    path: '',
+    component: PagesComponent,
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+  },
   { path: '**', component: NopagefoundComponent }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
-    PagesRoutingModule
+    //PagesRoutingModule
   ],
   exports: [RouterModule]
 })

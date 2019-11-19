@@ -17,11 +17,11 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 const pagesRoutes: Routes = [
-    {
-        path: '',
-        component: PagesComponent,
-        canActivate: [LoginGuard],
-        children: [
+//     {
+//         path: '',
+//         component: PagesComponent,
+//         canActivate: [LoginGuard],
+//         children: [
             { path: 'dashboard', component: DasboardComponent, data: { titulo: 'Mi dashboard' } },
             { path: 'progress', component: ProgressComponent, data: { titulo: 'Mi Progress' } },
             { path: 'grafica1', component: Graficas1Component, data: { titulo: 'Mis Gráficas' } },
@@ -37,8 +37,8 @@ const pagesRoutes: Routes = [
             { path: 'medicos', component: MedicosComponent, data: { tiltulo: 'Mantenimiento de Médicos' } },
             { path: 'medico/:id', component: MedicoComponent, data: { tiltulo: 'Actualizar Médico' } },
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-        ]
-    }
+    //     ]
+    // }
 ];
 
 @NgModule({
