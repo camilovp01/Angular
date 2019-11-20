@@ -27,7 +27,9 @@ const routes: Routes = [
   {
     path: '',
     component: PagesComponent,
-    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+    loadChildren: './pages/pages.module#PagesModule',
+    // loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) ***** GENERA ERROR EN PROD: Uncaught (in promise): Error: Runtime compiler is not loaded
+    // Error: Runtime compiler is not loaded
   },
   { path: '**', component: NopagefoundComponent }
 ];

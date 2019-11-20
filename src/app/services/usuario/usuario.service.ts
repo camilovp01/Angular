@@ -3,9 +3,10 @@ import { Usuario } from 'src/app/models/usuario/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,21 @@ export class UsuarioService {
     this.token = localStorage.getItem('token') || '';
     this.usuario = JSON.parse(localStorage.getItem('usuario')) || null;
     this.menu = this.token.length > 0 ? JSON.parse(localStorage.getItem('menu')) : null;
+  }
+
+  renovarToken() {
+    let url = environment.urlServicios + 'login/renovartoken';
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        this.token = resp.token;
+        localStorage.setItem('token', this.token);
+      }),
+      catchError(() => {
+        this.router.navigate(['/login']);
+        Swal.fire('No se pudo actulizar token', 'No se actualizó token', 'error');
+        return throwError('');
+      })
+    );
   }
 
   esAutenticado() {
@@ -40,7 +56,7 @@ export class UsuarioService {
     let url = environment.urlServicios + 'usuario';
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
-        swal.fire({
+        Swal.fire({
           title: "Usuario creado",
           text: usuario.email,
           icon: "success",
@@ -95,7 +111,7 @@ export class UsuarioService {
           let usuarioDb: Usuario = resp.usuario;
           this.guardarStorage(usuarioDb._id, this.token, usuarioDb, this.menu);
         }
-        swal.fire({
+        Swal.fire({
           title: "Usuario actualizado",
           text: usuario.nombre,
           icon: "success",
@@ -109,7 +125,7 @@ export class UsuarioService {
     this._subirArchivoService.subirArchivo(archivo, 'usuarios', id)
       .then((resp: any) => {
         this.usuario.img = resp.usuario.img;
-        swal.fire({
+        Swal.fire({
           title: "Imagen actualizada",
           text: resp.usuario.nombre,
           icon: "success",

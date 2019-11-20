@@ -92,7 +92,7 @@ export class HospitalesComponent implements OnInit {
     this._modalUploadService.mostrarModal('hospitales', id);
   }
 
-  crearHospital(nombre: string) {
+  crearHospital() {
     Swal.fire({
       title: 'Crear Hospital',
       text: 'Ingrese el nombre del hospital',
