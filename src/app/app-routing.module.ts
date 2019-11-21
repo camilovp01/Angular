@@ -10,6 +10,7 @@ import { Graficas1Component } from './pages/graficas1/graficas1.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 import { RegisterComponent } from './login/register.component';
 import { PagesRoutingModule } from './pages/pages-routing.module';
+import { LoginGuard } from './services/services.index';
 
 const routes: Routes = [
   // {
@@ -27,6 +28,7 @@ const routes: Routes = [
   {
     path: '',
     component: PagesComponent,
+    canActivate: [LoginGuard],
     loadChildren: './pages/pages.module#PagesModule',
     // loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) ***** GENERA ERROR EN PROD: Uncaught (in promise): Error: Runtime compiler is not loaded
     // Error: Runtime compiler is not loaded
