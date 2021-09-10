@@ -53,4 +53,4 @@ jobs:
         app-name: 'adminhospital'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_0c0f7d555a0c415eb014753f255466a5 }}
-        package: ./dist/adminpro
+        package: .
