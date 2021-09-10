@@ -15,7 +15,7 @@ import { ModalUploadService } from 'src/app/services/services.index';
 export class MedicoComponent implements OnInit {
 
   public hospitales: Hospital[] = [];
-  public medico: Medico = new Medico('', '', '', '', '');
+  public medico: Medico = new Medico('', '', '');
   public hospital: Hospital = new Hospital('');
 
 
